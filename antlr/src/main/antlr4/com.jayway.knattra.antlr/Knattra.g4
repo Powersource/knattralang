@@ -9,6 +9,9 @@ print : PRINT expression ;
 expression : reference #REF
     | value #VAL
     | expression '+' expression #ADD
+    | expression '-' expression #MINUS
+    | expression '*' expression #MULTIPLY
+    | expression '/' expression #DIVIDE
 ;
 value : op=NUMBER
       | op=STRING ;

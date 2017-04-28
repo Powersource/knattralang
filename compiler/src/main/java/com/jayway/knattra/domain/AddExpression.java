@@ -5,16 +5,10 @@ import org.objectweb.asm.Opcodes;
 
 import java.util.List;
 
-public class AddExpression implements Expression {
-    private final List<Expression> expressions;
+public class AddExpression extends MathExpression {
 
     public AddExpression(List<Expression> expressions) {
-        this.expressions = expressions;
-    }
-
-    @Override
-    public Type getType() {
-        return expressions.get(0).getType();
+        super(expressions);
     }
 
     @Override

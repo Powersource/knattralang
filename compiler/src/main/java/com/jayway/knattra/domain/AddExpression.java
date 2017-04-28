@@ -20,7 +20,10 @@ public class AddExpression implements Expression {
     @Override
     public void apply(MethodVisitor mv) {
         switch (getType()) {
-            case STRING: //TODO String addition is hard?
+            case STRING:
+                // get stringBuilder
+                // for every expression walk through, evaluate, call StringBuilder append
+                // call stringBuilder to String
                 break;
             case INTEGER:
                 boolean first = true;

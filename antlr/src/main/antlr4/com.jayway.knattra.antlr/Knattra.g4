@@ -2,12 +2,15 @@ grammar Knattra;
 
 compilationUnit : statement* EOF;
 
-statement: ( variableDeclaration | print | variableAssignment | iff);
+statement: ( variableDeclaration | print | variableAssignment | iff | loop);
 variableDeclaration : VARIABLE name EQUALS expression;
 variableAssignment : name EQUALS expression;
 print : PRINT expression ;
 
 iff : IF expression '{' pos '}' ELSE '{' neg '}';
+
+loop : WHILE expression '{' statement* '}';
+
 
 pos: statement*;
 neg: statement*;
@@ -26,6 +29,7 @@ value : op=NUMBER
 name : ID;
 reference : ID;
 //TOKENS
+WHILE : 'while';
 IF : 'if';
 ELSE : 'else';
 VARIABLE : 'var' ;

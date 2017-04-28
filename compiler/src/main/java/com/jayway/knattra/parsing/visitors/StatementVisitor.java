@@ -5,6 +5,8 @@ import com.jayway.knattra.antlr.KnattraParser;
 import com.jayway.knattra.domain.*;
 import com.jayway.knattra.domain.scope.Scope;
 
+import java.util.List;
+
 import static java.util.stream.Collectors.toList;
 
 public class StatementVisitor extends KnattraBaseVisitor<Statement> {
@@ -19,6 +21,14 @@ public class StatementVisitor extends KnattraBaseVisitor<Statement> {
     @Override
     public Print visitPrint(KnattraParser.PrintContext ctx) {
         return new Print(ctx.expression().accept(expressionVisitor));
+    }
+
+    @Override
+    public Statement visitLoop(KnattraParser.LoopContext ctx) {
+        Expression condition = ctx.expression().accept(expressionVisitor);
+        StatementVisitor statementVisitor = new StatementVisitor(new Scope(scope));
+        List<Statement> statements = ctx.statement().stream().map(s -> s.accept(statementVisitor)).collect(toList());
+        return new WhileStatement(condition, statements);
     }
 
     @Override

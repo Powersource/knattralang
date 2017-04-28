@@ -5,27 +5,28 @@ import org.objectweb.asm.Opcodes;
 
 public class VariableDeclaration implements Statement {
 
-    private Value value;
+    private final Expression value;
     private int index;
 
-    public VariableDeclaration(Value value) {
+    public VariableDeclaration(Expression value) {
 
         this.value = value;
     }
 
-    public Value getValue() {
+    public Expression getValue() {
         return value;
     }
 
     @Override
     public void apply(MethodVisitor mv) {
-        if (value instanceof NumericValue) {
-            int val = Integer.valueOf(((NumericValue) value).text);
-            mv.visitIntInsn(Opcodes.BIPUSH, val);
-            mv.visitVarInsn(Opcodes.ISTORE, index);
-        } else if (value instanceof StringValue) {
-            mv.visitLdcInsn(((StringValue) value).text);
-            mv.visitVarInsn(Opcodes.ASTORE, index);
+        value.apply(mv);
+        switch (value.getType()) {
+            case STRING:
+                mv.visitVarInsn(Opcodes.ASTORE, index);
+                break;
+            case INTEGER:
+                mv.visitVarInsn(Opcodes.ISTORE, index);
+                break;
         }
     }
 

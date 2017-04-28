@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 public class CompilationUnit {
     private String className;
-    private List<Statement> statements;
+    private final List<Statement> statements;
 
     public CompilationUnit(List<Statement> statements) {
 

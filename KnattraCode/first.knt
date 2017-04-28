@@ -1,4 +1,5 @@
-var five=5
-print five
+var a=5
+var b=6
+print a+b+3
 var bar="foo"
 print bar

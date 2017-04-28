@@ -4,9 +4,9 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class Print implements Statement {
-    private VariableDeclaration value;
+    private final Expression value;
 
-    public Print(VariableDeclaration value) {
+    public Print(Expression value) {
         this.value = value;
     }
 
@@ -14,14 +14,14 @@ public class Print implements Statement {
     @Override
     public void apply(MethodVisitor mv) {
         mv.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-
-
-        if (value.getValue() instanceof NumericValue) {
-            mv.visitVarInsn(Opcodes.ILOAD, value.getIndex());
-            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(I)V", false);
-        } else if (value.getValue() instanceof StringValue) {
-            mv.visitVarInsn(Opcodes.ALOAD, value.getIndex());
-            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+        value.apply(mv);
+        switch (value.getType()) {
+            case STRING:
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+                break;
+            case INTEGER:
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(I)V", false);
+                break;
         }
     }
 

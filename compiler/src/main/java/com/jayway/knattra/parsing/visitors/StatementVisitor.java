@@ -5,12 +5,14 @@ import com.jayway.knattra.antlr.KnattraParser;
 import com.jayway.knattra.domain.*;
 import com.jayway.knattra.domain.scope.Scope;
 
+import static java.util.stream.Collectors.toList;
+
 public class StatementVisitor extends KnattraBaseVisitor<Statement> {
     private final Scope scope;
     private final ExpressionVisitor expressionVisitor;
 
-    public StatementVisitor() {
-        scope = new Scope();
+    public StatementVisitor(Scope scope) {
+        this.scope = scope;
         expressionVisitor = new ExpressionVisitor(scope);
     }
 
@@ -25,6 +27,15 @@ public class StatementVisitor extends KnattraBaseVisitor<Statement> {
         VariableDeclaration variableDeclaration = new VariableDeclaration(expression);
         scope.addLocalVariable(ctx.name().getText(), variableDeclaration);
         return variableDeclaration;
+    }
+
+    @Override
+    public IfStatement visitIff(KnattraParser.IffContext ctx) {
+        StatementVisitor trueVisitor = new StatementVisitor(new Scope(scope));
+        StatementVisitor falseVisitor = new StatementVisitor(new Scope(scope));
+        return new IfStatement(ctx.expression().accept(expressionVisitor),
+                ctx.pos().statement().stream().map(s -> s.accept(trueVisitor)).collect(toList()),
+                ctx.neg().statement().stream().map(s -> s.accept(falseVisitor)).collect(toList()));
     }
 
     @Override

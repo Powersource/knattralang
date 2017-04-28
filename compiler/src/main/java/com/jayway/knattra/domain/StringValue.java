@@ -6,7 +6,7 @@ public class StringValue implements Expression {
     public final String text;
 
     public StringValue(String text) {
-        this.text = text;
+        this.text = text.substring(1, text.length() - 1);
     }
 
     @Override

@@ -21,6 +21,6 @@ VARIABLE : 'var' ;
 PRINT : 'print' ;
 EQUALS : '=' ;
 NUMBER : [0-9]+ ;
-STRING : '"'.*'"' ;
+STRING : '"'~('\r' | '\n' | '"')*'"' ;
 ID : [a-zA-Z0-9]+ ;
 WS: [ \t\n\r]+ -> skip ;

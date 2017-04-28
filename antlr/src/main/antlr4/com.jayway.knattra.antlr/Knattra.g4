@@ -2,8 +2,9 @@ grammar Knattra;
 
 compilationUnit : statement* EOF;
 
-statement: ( variableDeclaration | print);
+statement: ( variableDeclaration | print | variableAssignment);
 variableDeclaration : VARIABLE name EQUALS expression;
+variableAssignment : name EQUALS expression;
 print : PRINT expression ;
 
 expression : reference #REF

@@ -1,5 +1,8 @@
 var a=5
 var b=6
+print b
+b=b+1
+print b
 print a+b+3
 var bar="foo" +"bar"
 print bar +"baz"

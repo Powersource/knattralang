@@ -27,4 +27,12 @@ public class StatementVisitor extends KnattraBaseVisitor<Statement> {
         return variableDeclaration;
     }
 
+    @Override
+    public VariableAssignment visitVariableAssignment(KnattraParser.VariableAssignmentContext ctx) {
+        Expression expression = ctx.expression().accept(expressionVisitor);
+        VariableAssignment variableAssignment = new VariableAssignment(expression);
+        scope.updateLocalVariable(ctx.name().getText(), variableAssignment);
+        return variableAssignment;
+
+    }
 }

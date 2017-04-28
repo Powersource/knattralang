@@ -5,7 +5,7 @@ import org.objectweb.asm.Opcodes;
 
 public class ReferenceExpression implements Expression {
     private final Type type;
-    private final int index;
+    public final int index;
 
     public ReferenceExpression(Type type, int index) {
         this.type = type;

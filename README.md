@@ -5,7 +5,7 @@ Implementation heavily inspired by Enkel
 https://github.com/JakubDziworski/Enkel-JVM-language
 
 
-#Usefull commands
+# Usefull commands
 
 compile project:
 ```mvn clean package```
@@ -24,7 +24,7 @@ generate asm code for a class
 
 
 
-#Instructions
+#   Instructions
 Add more operators
 
 Add more primitive types

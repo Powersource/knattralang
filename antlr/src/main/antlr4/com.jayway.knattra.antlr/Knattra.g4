@@ -13,6 +13,8 @@ expression : reference #REF
 ;
 value : op=NUMBER
       | op=STRING ;
+bool : op=FALSE
+     | op=TRUE ;
 
 
 name : ID;
@@ -24,4 +26,6 @@ EQUALS : '=' ;
 NUMBER : [0-9]+ ;
 STRING : '"'.*'"' ;
 ID : [a-zA-Z0-9]+ ;
+FALSE : 'f(alse)?' ;
+TRUE : 't(rue)?' ;
 WS: [ \t\n\r]+ -> skip ;

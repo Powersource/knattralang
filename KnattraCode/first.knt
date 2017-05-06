@@ -2,5 +2,7 @@ var a=5
 var b=6
 print a+b+3
 print b-a
+print t
+print false
 var bar="foo"
 print bar

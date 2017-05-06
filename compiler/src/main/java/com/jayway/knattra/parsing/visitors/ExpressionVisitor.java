@@ -3,6 +3,7 @@ package com.jayway.knattra.parsing.visitors;
 import com.jayway.knattra.antlr.KnattraBaseVisitor;
 import com.jayway.knattra.antlr.KnattraParser;
 import com.jayway.knattra.domain.AddExpression;
+import com.jayway.knattra.domain.SubExpression;
 import com.jayway.knattra.domain.Expression;
 import com.jayway.knattra.domain.scope.Scope;
 
@@ -23,6 +24,11 @@ public class ExpressionVisitor extends KnattraBaseVisitor<Expression> {
     @Override
     public Expression visitADD(KnattraParser.ADDContext ctx) {
         return new AddExpression(ctx.expression().stream().map(a -> a.accept(this)).collect(Collectors.toList()));
+    }
+
+    @Override
+    public Expression visitSUB(KnattraParser.SUBContext ctx) {
+        return new SubExpression(ctx.expression().stream().map(a -> a.accept(this)).collect(Collectors.toList()));
     }
 
     @Override
